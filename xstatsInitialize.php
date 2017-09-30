@@ -3,9 +3,9 @@
  * Autor: SHE
  */
 
-include ('../../inc.conf.php');
-$conn = @mysql_connect($conf_database_server,$conf_database_login,$conf_database_password);
-$db = @mysql_select_db($conf_database_database,$conn);
+include (dirname(__FILE__).'/../../inc.conf.php');
+include (dirname(__FILE__).'/../../inhalt/inc.hilfsfunktionen.php');
+open_db();
 
 $result = @mysql_query("SHOW TABLES LIKE 'skrupel_xstats'") or die(mysql_error());
 if(@mysql_num_rows($result) != 1) {
@@ -133,7 +133,7 @@ if(@mysql_num_rows($result) != 1) {
                         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                         version VARCHAR( 20 ) NOT NULL
                 );");
-    @mysql_query("INSERT INTO skrupel_xstats_version(version)VALUES('1.01');");
+    @mysql_query("INSERT INTO skrupel_xstats_version(version)VALUES('1');");
     echo("Skrupel XStats initialized successfully.");
 }else {
     echo("Skrupel XStats already initialized - no action performed.");

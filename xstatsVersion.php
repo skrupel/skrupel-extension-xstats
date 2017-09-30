@@ -14,7 +14,7 @@ function xstats_getVersion() {
     $result = @mysql_query($query) or die(mysql_error());
     $result = @mysql_fetch_row($result);
     $result = $result[0];
-    $version = "v".$result;
+    $version = "v".$result." Client v1.03";
     return( $version );
 }
 
