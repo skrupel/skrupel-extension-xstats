@@ -31,10 +31,10 @@ function xstats_gameExistsInStats($gameId){
     if( !xstats_isInstalled()){
         return( false );
     }
-    $query = "SELECT COUNT(1) FROM skrupel_xstats WHERE gameid=".$gameId;
+    $query = "SELECT COUNT(1) FROM skrupel_xstats WHERE gameid=".$gameId;    
     $collectResult = @mysql_query($query) or die(mysql_error());
-    $collectResult = @mysql_fetch_row($collectResult);
-    return( $collectResult[0] == 1 );
+    $collectResult = @mysql_fetch_array($collectResult);
+    return( $collectResult[0] > 0 );
 }
 
 

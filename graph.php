@@ -21,7 +21,7 @@ $height=$_GET["height"];
 if( is_null($height)) {
     $height = 300;
 }
-if( $_GET["displayLegend"]=="FALSE") {
+if( isset($_GET["displayLegend"]) && $_GET["displayLegend"]=="FALSE") {
     $displayLegend = FALSE;
 }else {
     $displayLegend = TRUE;
@@ -36,9 +36,9 @@ if( !$statsGraphOutputType == 'IMAGE' && !$statsGraphOutputType == 'FLASH' ) {
 
 include ('xstatsUtil.php');
 include('phplot/phplot.php');
-include ('../../inc.conf.php');
-$conn = @mysql_connect($conf_database_server,$conf_database_login,$conf_database_password);
-$db = @mysql_select_db($conf_database_database,$conn);
+include (dirname(__FILE__).'/../../inc.conf.php');
+include (dirname(__FILE__).'/../../inhalt/inc.hilfsfunktionen.php');
+open_db();
 if( $statsGraphOutputType == 'IMAGE') {
     xstats_displayGraphImage( $statsGameId, $statsType, $displayLegend, $width,$height);
 }else {
@@ -327,7 +327,7 @@ function xstats_collectDataPercent( $gameId, $colName1, $colName2, $maxTurn, $st
             $result = @mysql_fetch_array($result);
             $value1 = $result[$colName1];
             $value2 = $result[$colName2];
-            if( is_null( $value2 )) {
+            if( is_null( $value2 ) || $value2 == 0 ) {
                 $singlePoint[] = 0;
             }else {
                 $singlePoint[] = ($value1*100)/$value2;
